@@ -68,18 +68,19 @@ jobs:
 
       # La base (radar.db) y los reportes viven en un artifact que pasa de una corrida a la
       # siguiente. No se commitean: así los datos de YouTube se borran a los 30 días de verdad.
-      - name: Bajar la base de la última corrida exitosa
+      - name: Bajar la base guardada más reciente
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p datos
-          run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow radar.yml --status success --limit 1 \
-            --json databaseId -q '.[0].databaseId')
+          # El artifact "radar-datos" más nuevo que no venció (las corridas de buscar_apps no guardan base).
+          run_id=$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=radar-datos&per_page=20" \
+            --jq '[.artifacts[] | select(.expired == false)] | sort_by(.created_at) | last | .workflow_run.id // empty')
           if [ -n "$run_id" ]; then
             # Si existe y no se puede bajar, mejor fallar que seguir con la base vacía y pisar la buena.
             gh run download "$run_id" --repo "$GITHUB_REPOSITORY" -n radar-datos -D datos
           else
-            echo "Primera corrida: se empieza con la base vacía."
+            echo "No hay base guardada: se empieza de cero."
           fi
           ls -la datos
 
