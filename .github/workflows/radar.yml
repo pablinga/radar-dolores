@@ -12,6 +12,9 @@ on:
       max_posts:
         description: "Tope de posts a clasificar"
         default: "200"
+      buscar_apps:
+        description: "Solo buscar ids de la App Store (nombres separados por coma) y salir"
+        default: ""
 
 permissions:
   contents: read
@@ -22,7 +25,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  buscar-apps:
+    if: ${{ inputs.buscar_apps != '' && inputs.buscar_apps != null }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Buscar apps
+        env:
+          APPS: ${{ inputs.buscar_apps }}
+        run: |
+          IFS=',' read -ra names <<< "$APPS"
+          for n in "${names[@]}"; do
+            n="$(echo "$n" | xargs)"
+            echo "### $n"
+            python radar.py --find-app "$n" || true
+            sleep 2
+          done
+
   radar:
+    if: ${{ inputs.buscar_apps == '' || inputs.buscar_apps == null }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

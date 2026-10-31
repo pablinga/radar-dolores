@@ -9,7 +9,7 @@ dashboard_weeks: 8        # semanas que muestra dashboard.html
 
 sources:
   reddit:
-    enabled: true
+    enabled: false          # apagado hasta tener REDDIT_CLIENT_ID / REDDIT_CLIENT_SECRET
     subreddits: [argentina, merval, emprendedores, buenosaires, RepublicaArgentina]
     queries:
       - alguien sabe como
@@ -26,7 +26,7 @@ sources:
     sleep_seconds: 2      # pausa entre búsquedas (PRAW además respeta el rate limit de la API)
 
   youtube:
-    enabled: true             # necesita YOUTUBE_API_KEY
+    enabled: false            # apagado hasta tener YOUTUBE_API_KEY
     queries:                  # cada búsqueda gasta 100 unidades de cuota (10.000 gratis por día)
       - cómo hacer el trámite
       - monotributo

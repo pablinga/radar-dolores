@@ -66,6 +66,10 @@ Todo en esta carpeta (o donde apunte `--out`):
 
 En ninguna fuente se guardan nombres de autor.
 
+**Estado actual:** Reddit y YouTube vienen apagados (`enabled: false`) hasta cargar sus claves; el radar arranca con noticias y App Store, que no piden clave. Para prenderlos: cargar los secrets y poner `enabled: true`.
+
+Para buscar ids de apps sin instalar nada: Actions → "Radar semanal" → "Run workflow" y completar `buscar_apps` (ej. `mercado pago, uala`). El resultado queda en el log de la corrida.
+
 ## Agendarlo en GitHub Actions (recomendado)
 
 `.github/workflows/radar.yml` lo corre todos los **lunes a las 08:17 (Argentina)**, aunque tu compu esté apagada, y te manda el mail. Funciona con el radar en la raíz de un repo propio (privado).
