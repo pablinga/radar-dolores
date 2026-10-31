@@ -60,9 +60,29 @@ sources:
     pages: 2                  # hasta 50 reseñas por página, máx. 10
     filter: false             # una reseña de 1-2 estrellas ya es una queja: no pasa por pain_words
     sleep_seconds: 2
-    # Completar con ids reales: python radar.py --find-app "mi argentina"
-    apps: []
-    #  - {name: Mi Argentina, id: 0000000000}
+    # Para sumar apps: Actions → Run workflow → buscar_apps (o python radar.py --find-app "nombre")
+    apps:
+      # billeteras y bancos
+      - {name: Mercado Pago, id: 925436649}
+      - {name: Cuenta DNI, id: 1436655618}
+      - {name: MODO, id: 1530606263}
+      - {name: Ualá, id: 1279808159}
+      - {name: Brubank, id: 1295202448}
+      - {name: Naranja X, id: 1452691757}
+      - {name: BNA+, id: 1523383806}
+      - {name: Nueva BNA+, id: 6446181557}
+      - {name: Galicia, id: 774860115}
+      - {name: Santander, id: 626971464}
+      # Estado y trámites
+      - {name: Mi Argentina, id: 1107620792}
+      - {name: mi ANSES, id: 1587022312}
+      - {name: ARCA Móvil, id: 1237748064}
+      # compras, delivery, servicios
+      - {name: Mercado Libre, id: 463624852}
+      - {name: PedidosYa, id: 490099807}
+      - {name: Rappi, id: 984044296}
+      - {name: Mi Personal, id: 373559386}
+      - {name: Cuándo SUBO, id: 1447379498}
 
 # Fragmentos de expresión regular (sin distinguir mayúsculas). Un post pasa el filtro
 # si su texto contiene alguno. Cada fuente puede saltear el filtro con filter: false.
