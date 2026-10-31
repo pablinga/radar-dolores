@@ -1,0 +1,11 @@
+radar.db
+reporte.md
+posts.json
+.venv/
+__pycache__/
+.pytest_cache/
+radar.env
+reportes/
+dashboard.html
+radar.log
+ejemplo/
